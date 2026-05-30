@@ -14,9 +14,16 @@
                     <li>{{ $item->product->name }} × {{ $item->quantity }}個 — {{ number_format($item->price) }}円</li>
                 @endforeach
             </ul>
-            <div class="total">合計：{{ number_format($order->total_price) }}円</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:.5rem;">
+                <div class="total">合計：{{ number_format($order->total_price) }}円</div>
+                <a href="/orders/{{ $order->id }}" class="btn btn-outline" style="font-size:.85rem; padding:.3rem .8rem;">詳細</a>
+            </div>
         </div>
     @empty
         <div class="empty">注文履歴がありません</div>
     @endforelse
+
+    <div style="margin-top:1.5rem;">
+        {{ $orders->links() }}
+    </div>
 @endsection

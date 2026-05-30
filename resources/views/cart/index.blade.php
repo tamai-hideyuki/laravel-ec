@@ -3,12 +3,22 @@
 @section('content')
     <h1>カート</h1>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">{{ $errors->first() }}</div>
+    @endif
+
     @forelse ($carts as $cart)
         <div class="card">
             <div class="card-body">
                 <div class="card-title">{{ $cart->product->name }}</div>
-                <div class="card-text">{{ $cart->quantity }}個</div>
+                <div class="card-text" style="color: var(--muted); font-size:.85rem;">在庫 {{ $cart->product->stock }}個</div>
             </div>
+            <form method="POST" action="/cart/{{ $cart->id }}" style="display:flex; align-items:center; gap:.5rem;">
+                @csrf
+                @method('PATCH')
+                <input type="number" name="quantity" value="{{ $cart->quantity }}" min="1" max="{{ $cart->product->stock }}" style="width:65px;">
+                <button type="submit" class="btn btn-outline" style="padding:.4rem .8rem; font-size:.85rem;">更新</button>
+            </form>
             <div class="price">{{ number_format($cart->product->price * $cart->quantity) }}円</div>
             <form method="POST" action="/cart/{{ $cart->id }}">
                 @csrf

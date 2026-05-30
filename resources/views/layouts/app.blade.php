@@ -188,6 +188,8 @@
         <a href="/products">商品一覧</a>
         <a href="/cart">カート</a>
         <a href="/orders">注文履歴</a>
+        <span style="flex:1;"></span>
+        <a href="/admin/products" style="opacity:.8; font-size:.85rem;">管理者</a>
     </nav>
     <main>
         @yield('content')
